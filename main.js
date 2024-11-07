@@ -3,16 +3,15 @@ const container = document.querySelector(".container");
 const temperatura = document.querySelector(".temp");
 const humedad = document.querySelector(".humedad");
 const resultados = document.querySelector("h2");
+const cityName = document.querySelector("h3");
 const error = document.querySelector(".error");
 
 const getWeatherData = async (ciudad) => {
+  const apiKey = config.API_KEY;
   try {
-    const apiKey = "50df9374f23a88514c92812cc968e399";
     const respuesta = await fetch(
-      `https://api.openweathermap.org/data/2.5/find?q=${ciudad}&units=metric&appid=${apiKey}`
+      `${config.URL}/find?q=${ciudad}&units=metric&appid=${apiKey}`
     );
-
-    // console.log(respuesta);
 
     if (respuesta.ok) {
       const data = await respuesta.json();
@@ -33,7 +32,6 @@ formulario.addEventListener("submit", async (e) => {
   if (!ciudad) {
     error.innerHTML = "Por favor ingrese una ciudad.";
     error.style.color = "red";
-    // console.log(error);
     return;
   }
 
@@ -44,14 +42,11 @@ formulario.addEventListener("submit", async (e) => {
   if (!data) {
     error.innerHTML = "We couldn't find this city.";
     error.style.color = "red";
-    // console.log(error);
   } else {
-    // console.log(data.main);
     const temp = data.main.temp;
     const humidityValue = data.main.humidity;
-    console.log("Temperatura: ", temp);
-    console.log("Humedad:", humidityValue);
     resultados.style.display = "block";
+    cityName.innerHTML = `${data.name}`;
     temperatura.innerHTML = `Temperatura: ${temp}°C`;
     humedad.innerHTML = `Humedad: ${humidityValue}%`;
     error.innerHTML = "";
