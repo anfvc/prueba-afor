@@ -4,7 +4,6 @@ const temperatura = document.querySelector(".temp");
 const humedad = document.querySelector(".humedad");
 const resultados = document.querySelector("h2");
 const error = document.querySelector(".error");
-// console.log(form);
 
 const getWeatherData = async (ciudad) => {
   try {
