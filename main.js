@@ -8,20 +8,23 @@ const error = document.querySelector(".error");
 
 const getWeatherData = async (ciudad) => {
   const apiKey = config.API_KEY;
+  const url = config.URL
   try {
     const respuesta = await fetch(
-      `${config.URL}/find?q=${ciudad}&units=metric&appid=${apiKey}`
+      `${url}?q=${ciudad}&units=metric&appid=${apiKey}`
     );
+
+    // console.log(respuesta);
 
     if (respuesta.ok) {
       const data = await respuesta.json();
-      // console.log(data.list[0]);
-      return data.list[0];
+      // console.log(data);
+      return data;
     } else {
       console.log("We couldn't fetch the data.");
     }
   } catch (error) {
-    alert("Something has ocurred");
+    alert("Something is wrong with the API call.");
   }
 };
 
